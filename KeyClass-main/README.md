@@ -1,6 +1,10 @@
 <h1 align="center">CS-598 Final Project Submission</h1>
 <h2 align="center">Reproducing Results in Classifying Unstructured Clinical Notes via Automatic Weak Supervision</h2>
 <h2 align="center">(https://arxiv.org/pdf/2206.12088.pdf)</h2>
+<h2 align="center">Project Report https://github.com/ChhaviIlli/CS598_DLH_Final_Project_Submission/blob/main/KeyClass-main/CS598DL4H_Project_Final_SP23.pdf </h2>
+<h2 align="center">Slides https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2FChhaviIlli%2FCS598_DLH_Final_Project_Submission%2Fmain%2FKeyClass-main%2FCS598DL4H_Project_Final_SP23.pptx&wdOrigin=BROWSELINK </h2>
+<h2 align="center">Youtube video https://youtu.be/tOb4M21vBUM </h2>
+
 <p align="center">
 <img alt="License" src="https://img.shields.io/badge/License-MIT-yellow.svg">
 </p>
