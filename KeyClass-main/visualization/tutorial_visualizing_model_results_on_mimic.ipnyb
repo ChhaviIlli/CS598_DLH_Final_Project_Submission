@@ -1,0 +1,50 @@
+"""
+
+After obtaining classification results using keyclass Approach use Visualization tool to inspect the results
+
+
+Integrating the What-If Tool (WIT) into your Jupyter Notebook code requires you to have the TensorFlow package installed. WIT is an interactive visualization tool for understanding the performance of machine learning models, which is part of the TensorFlow Extended (TFX) suite. To use WIT with your current code, please follow these steps:
+
+Install the required packages:
+"""
+!pip install tensorflow witwidget
+
+"""
+Import the necessary libraries in your Jupyter Notebook code:
+"""
+
+import tensorflow as tf
+from witwidget.notebook.visualization import WitConfigBuilder
+from witwidget.notebook.visualization import WitWidget
+
+"""
+Define a custom function that takes input features and returns the predictions from your model:
+"""
+
+def custom_predict_fn(examples):
+    # Pre-process input examples as needed, for example, tokenize and encode text
+    input_features = pre_process_examples(examples)
+
+    # Get predictions from your model
+    preds = model.predict_proba(input_features, batch_size=args['self_train_batch_size'], raw_text=True)
+    
+    # Return the predictions as a list of dictionaries
+    return [{'predictions': pred.tolist()} for pred in preds]
+
+"""
+*Note: You'll need to create the pre_process_examples function to handle the pre-processing of input examples for your specific model.
+"""
+"""
+Configure the What-If Tool and display it in the notebook:
+"""
+
+# Create a config builder object
+config_builder = WitConfigBuilder(examples)  # Replace 'examples' with your test dataset
+config_builder.set_custom_predict_fn(custom_predict_fn)
+
+# Display the What-If Tool
+WitWidget(config_builder)
+
+"""
+Remember to replace examples with your test dataset. With these changes, the What-If Tool should be integrated into your Jupyter Notebook, allowing you to visualize and interactively analyze the performance of your model.
+"""

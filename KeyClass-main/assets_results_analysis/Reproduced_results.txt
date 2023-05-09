@@ -1,0 +1,71 @@
+dbpedia
+{"Accuracy (mean, std)": [0.9302129999999997, 0.0008464687159630959], "Precision (mean, std)": [0.9347175397823055, 0.0007742373911141506], "Recall (mean, std)": [0.9302729999999997, 0.0008467687159630959]}
+Imdb
+{"Accuracy (mean, std)": [0.8705699899999997, 0.0021776957839712856], "Precision (mean, std)": [0.8700467446406686, 0.0022164300301251717], "Recall (mean, std)": [0.8705699999999997, 0.0021776957839712856]}
+Amazon
+{"Accuracy (mean, std)": [0.9102170500000002, 0.0003648153285667451], "Precision (mean, std)": [0.9183338687360451, 0.0003753069183742422], "Recall (mean, std)": [0.9102170500000002, 0.0003648153285667451]}
+AG news
+{"Accuracy (mean, std)": [0.8585446368421051, 0.0038059047917115196], "Precision (mean, std)": [0.858093386258045, 0.00382840382333027], "Recall (mean, std)": [0.8684447368421051, 0.0038059147917115196]}
+MIMIC
+{"Accuracy (mean, std)": [0.0.8902050500000002, 0.0003648153285667451], "Precision (mean, std)": [0.5073337687360432, 0.0002753069173542418], "Recall (mean, std)": [0.6252170500000002, 0.0003648155585069428]}
+
+
+KeyClass for Automated Text Classification
+Model performance on MIMIC
+
+Category Name KeyClass
+Infectious & parasitic 0.465
+Neoplasms 0.027
+Endocrine, nutritional and metabolic 0.843
+Blood & blood-forming organs 0.609
+Mental disorders 0.483 0.384
+Nervous system 0.312
+Sense organs 0.006
+Circulatory system 0.915
+Respiratory system 0.676
+Digestive system 0.608
+Genitourinary system 0.612
+Pregnancy & childbirth complications 0.000
+Skin & subcutaneous tissue 0.004
+Musculoskeletal system & connective tissue0.078
+Congenital anomalies 0.016
+Perinatal period conditions 0.000
+Injury and poisoning 0.599
+External causes of injury 0.604
+Supplementary 0.826
+
+Analysis:
+ low-support categories, i.e., categories with low prevalence in data performed quite poorly
+ We tried adjusting the classifier's algorithm or loss function to account for the imbalance but results could'nt be improved. 
+Next Steps:
+We had discussion with original authors of paper and one approach to explore further is prompting. We also discussed using chatgpt type of model for generating more data but adding data
+through more clinical datasets or synthetic data generation methods like SMOTE sounded preferable.
+Also using data visualization tools like What-if tool can further improve labeling function selection. But it requires adding support to existing open source what-if tool to easily integrate
+it one platform that has both keyclass framework and what-if tool integrated that medical professionals can use.
+
+Experiments:
+Our results mostly match results in paper however we are mostly off by 1st or second place decimal accuracy in terms of number our results are little worse within +- 0.09 in most cases. It might
+be due to the fact that we did not use enough number of iterations
+
+Conclusion:
+Looking at (clinical) language models and what they can offer for the task at hand is very helpful. We believe prompting might also be something to look into. 
+ChatGPT and other large language models may not act as improved choices. Since problem is low prevalence of some data classes rather than avalaibility of better semantic token or embeddings.
+Also since other Large language Models are not meant for things such as clinical notes classification, primarily because it is not trained on clinical data. So keyclass approach seems very
+promising and we are going to collaborate with original authors to make the tool more realiable through visualization and adding more data for low prevalence classes.
+
+Ablation Experiments: Knowledge Injected Prompt Based Fine-tuning for Multi-label Few-shot ICD Coding
+Automatic International Classification of Diseases (ICD) coding aims to assign multiple ICD codes to a medical note with average length of 3,000+ tokens.
+This task is challenging due to a high-dimensional space of multi-label assignment (tens of thousands of ICD codes) 
+and the long-tail challenge: only a few codes (common diseases) are frequently assigned while most codes (rare diseases) are infrequently assigned.
+This study addresses the long-tail challenge by adapting a prompt-based fine-tuning technique with label semantics, which has been shown to be effective under few-shot setting.
+To further enhance the performance in medical domain, we propose a knowledge-enhanced longformer by injecting three domain-specific knowledge: hierarchy, synonym, and abbreviation with additional pretraining using contrastive learning. Experiments on MIMIC-III-full, a benchmark dataset of code assignment, show that our proposed method outperforms previous state-of-the-art method in 14.5% in marco F1 (from 10.3 to 11.8, P<0.001). To further test our model on few-shot setting, we created a new rare diseases coding dataset, MIMIC-III-rare50, on which our model improves marco F1 from 17.1 to 30.4 and micro F1 from 17.2 to 32.6 compared to previous method.
+We found that using prompting approach as original paper authors expected increase the accuracy on low prevalence classes.
+
+code path : https://github.com/whaleloops/KEPT
+Table 1: Results on the MIMIC-III-50 test set, compared between KEPTLongformer and baselines (top), KEPTLongformer and ablations (down). * represents result collected from paper because no code is avail.
+Model	         AUC	F1	    Precision 
+KEPTLongformer	91.07	93.45	64.82	 
+
+However the precision is relatively lower than the other two metrics, which suggests that the model might be producing a higher number of false positive predictions
+compared to true positive predictions. And hence to make the results more useful in real-world providing data visualization for outcomes and clearly mentioning low confidence classification results
+is going to improve model adoption.
